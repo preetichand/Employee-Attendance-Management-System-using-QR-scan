@@ -32,11 +32,19 @@ class Database:
          mydb=mysql.connector.connect(host="localhost",user="root",passwd="preeti_chand@07",database="Project")
          mycursor=mydb.cursor()
          if Exit==True:
+            mycursor.execute("Select EmpId from Report where EmpId=%s and OutTime is Null",(id,))
+            row=mycursor.fetchone()
+            if(row is  None):
+                return True
             mycursor.execute("update report set OutTime=%s where EmpId=%s",(Time,id))
             mydb.commit()
             mydb.close()
 
          else:
+            mycursor.execute("Select EmpId from Report where EmpId=%s and Date =%s",(id,date))
+            row=mycursor.fetchone()
+            if(row is not None):
+                return True
             query="select Name,Dep from Employee where EmpId =%s"
             mycursor.execute(query,(id,))
             row=mycursor.fetchone()

@@ -70,9 +70,14 @@ class MainUI(Frame):
         formatted_date = now.strftime('%Y-%m-%d')
 
         repo=Database()
-        repo.mark_Attendance(ID,formatted_date,time.strftime('%H:%M'),False)
+        repeat= repo.mark_Attendance(ID,formatted_date,time.strftime('%H:%M'),False)
+
+        if(repeat is True):
+             tkinter.messagebox.showinfo("Warning","Enter Time already marked")
+        
+        else:
       
-        tkinter.messagebox.showinfo("Login successful", "Emp No. %s %s at %s/%s/%s %s:%s"
+             tkinter.messagebox.showinfo("Login successful", "Emp No. %s %s at %s/%s/%s %s:%s"
                                         % (ID, inout, now.day, now.month, now.year, now.hour, now.minute))
 
         
@@ -87,10 +92,15 @@ class MainUI(Frame):
             formatted_date = now.strftime('%Y-%m-%d')
 
             repo=Database()
-            repo.mark_Attendance(ID,formatted_date,time.strftime('%H:%M'),True)
+            repeat=repo.mark_Attendance(ID,formatted_date,time.strftime('%H:%M'),True)
         
-            tkinter.messagebox.showinfo("Logout successful", "Emp No. %s %s at %s/%s/%s %s:%s"
-                                            % (ID, out, now.day, now.month, now.year, now.hour, now.minute))
+            if(repeat is True):
+             tkinter.messagebox.showinfo("Warning"," Exit Time already marked")
+        
+            else:
+      
+             tkinter.messagebox.showinfo("Login successful", "Emp No. %s %s at %s/%s/%s %s:%s"
+                                        % (ID, out, now.day, now.month, now.year, now.hour, now.minute))
         
        
 
