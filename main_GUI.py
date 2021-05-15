@@ -36,7 +36,7 @@ class MainUI(Frame):
         self.BotEx = Button(master, text="Exit working", bg="SkyBlue1", width="20",
                             command=lambda: self.add_attendance_log2("Exit")) \
             .grid(row=3, column=2)
-        self.Admin_enter = Label(master, text="For admin functions please enter password: (1234)", fg="gray") \
+        self.Admin_enter = Label(master, text="For admin functions please enter password:", fg="gray") \
             .grid(row=8, column=0, pady=80)
         self.entry1 = Entry(self.master, width="20", textvariable=self.password) \
             .grid(row=8, column=1, pady=80, padx=10)
@@ -368,41 +368,47 @@ class AttendanceReportByEmp(Frame):
         fromDate=pd.to_datetime(from_year+from_month+from_date,format='%Y%m%d').strftime('%Y-%m-%d')
         toDate=pd.to_datetime(until_year+until_month+to_date,format='%Y%m%d').strftime('%Y-%m-%d')
        
-
         repo=Database()
-        rows=repo.get_report_employee(ID)
-        
-        self.label11 = Label(self.master, text="Name :").grid(row=7, column=0, sticky=E,pady=5)
-        self.label12 = Label(self.master, text=rows[1]).grid(row=7, column=1, sticky=E,pady=5)
-        self.label13 = Label(self.master, text="Department :").grid(row=7, column=2, sticky=E,pady=5)
-        self.label14 = Label(self.master, text=rows[7]).grid(row=7, column=3, sticky=E,pady=5)
-        self.label15 = Label(self.master, text="Email :").grid(row=7, column=4, sticky=E,pady=5)
-        self.label16 = Label(self.master, text=rows[3],fg='blue').grid(row=7, column=5, sticky=E,pady=5)
+        obj=Check_emp_data()
 
-        self.label17 = Label(self.master, text="Blood Group :").grid(row=8, column=0, sticky=E,pady=5)
-        self.label18 = Label(self.master, text=rows[6]).grid(row=8, column=1, sticky=E,pady=5 )
-        self.label19 = Label(self.master, text="Designation :").grid(row=8, column=2, sticky=E)
-        self.label20 = Label(self.master, text=rows[2]).grid(row=8, column=3, sticky=E,pady=5)
-        self.label21 = Label(self.master, text="Contact :").grid(row=8, column=4, sticky=E,pady=5)
-        self.label22 = Label(self.master, text=rows[4],fg='blue').grid(row=8, column=5, sticky=E,pady=5)
-        self.label23 = Label(self.master).grid(row=9, column=0, sticky=E,pady=5)
+        if obj.check_id_in_list(ID,repo) is True:   
+            rows=repo.get_report_employee(ID)
+            
+            self.label11 = Label(self.master, text="Name :").grid(row=7, column=0, sticky=E,pady=5)
+            self.label12 = Label(self.master, text=rows[1]).grid(row=7, column=1, sticky=E,pady=5)
+            self.label13 = Label(self.master, text="Department :").grid(row=7, column=2, sticky=E,pady=5)
+            self.label14 = Label(self.master, text=rows[7]).grid(row=7, column=3, sticky=E,pady=5)
+            self.label15 = Label(self.master, text="Email :").grid(row=7, column=4, sticky=E,pady=5)
+            self.label16 = Label(self.master, text=rows[3],fg='blue').grid(row=7, column=5, sticky=E,pady=5)
+
+            self.label17 = Label(self.master, text="Blood Group :").grid(row=8, column=0, sticky=E,pady=5)
+            self.label18 = Label(self.master, text=rows[6]).grid(row=8, column=1, sticky=E,pady=5 )
+            self.label19 = Label(self.master, text="Designation :").grid(row=8, column=2, sticky=E)
+            self.label20 = Label(self.master, text=rows[2]).grid(row=8, column=3, sticky=E,pady=5)
+            self.label21 = Label(self.master, text="Contact :").grid(row=8, column=4, sticky=E,pady=5)
+            self.label22 = Label(self.master, text=rows[4],fg='blue').grid(row=8, column=5, sticky=E,pady=5)
+            self.label23 = Label(self.master).grid(row=9, column=0, sticky=E,pady=5)
 
         emp_fields = ["Emloyee ID","Name","Department","Date", "InTime","Status","OutTime"]
     
-        for val in range(len(emp_fields)):
-                self.label30 = Label(self.master, text=emp_fields[val],fg='green').grid(row=14, column=val)
-        
         rows=repo.view_Report(ID,fromDate,toDate)
-        i=15
-        for data in rows: 
-            for j in range(len(data)):
-                e = Entry(self.master, width=13, fg='navy blue') 
-                e.grid(row=i, column=j) 
-                e.insert(END, data[j])
-            i=i+1
+        if(len(rows)==0):
+             tkinter.messagebox.showinfo("warning",
+                                                   "No record Found")
+             return
+        else:  
+            for val in range(len(emp_fields)):
+                self.label30 = Label(self.master, text=emp_fields[val],fg='green').grid(row=14, column=val)
+            i=15
+            for data in rows: 
+                for j in range(len(data)):
+                    e = Entry(self.master, width=13, fg='navy blue') 
+                    e.grid(row=i, column=j) 
+                    e.insert(END, data[j])
+                i=i+1
         
        
-            
+       
 
     def closeScreen(self, w):
         w.destroy()
