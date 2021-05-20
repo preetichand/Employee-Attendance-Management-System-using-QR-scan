@@ -380,7 +380,6 @@ class AttendanceReportByEmp(Frame):
             self.label14 = Label(self.master, text=rows[7]).grid(row=7, column=3, sticky=E,pady=5)
             self.label15 = Label(self.master, text="Email :").grid(row=7, column=4, sticky=E,pady=5)
             self.label16 = Label(self.master, text=rows[3],fg='blue').grid(row=7, column=5, sticky=E,pady=5)
-
             self.label17 = Label(self.master, text="Blood Group :").grid(row=8, column=0, sticky=E,pady=5)
             self.label18 = Label(self.master, text=rows[6]).grid(row=8, column=1, sticky=E,pady=5 )
             self.label19 = Label(self.master, text="Designation :").grid(row=8, column=2, sticky=E)
@@ -407,12 +406,8 @@ class AttendanceReportByEmp(Frame):
                     e.insert(END, data[j])
                 i=i+1
         
-       
-       
-
     def closeScreen(self, w):
         w.destroy()
-
 
 
 # *******************************************************************************************************************
@@ -420,6 +415,3 @@ if __name__ == "__main__":
     root = Tk()
     sys = MainUI(root)
     root.mainloop()
-
-
-
