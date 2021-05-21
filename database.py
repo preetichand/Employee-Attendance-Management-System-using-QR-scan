@@ -10,7 +10,7 @@ class Database:
          mycursor.execute("create database if not exists Attendance")
          mycursor.execute("use Attendance")
          mycursor.execute("create table if not exists Employee(EmpId varchar(255) Primary key,Name varchar(255),dob varchar(50),gender varchar(10),dpmnt varchar(10),phone varchar(10),email varchar(30),address varchar(255))")
-         #mycursor.execute("create table if not exists Report(EmpId varchar(255) ,Name varchar(255),Dept varchar(255),Date date,InTime varchar(255),status varchar(255),OutTime varchar(255))")
+         mycursor.execute("create table if not exists Records(EmpId varchar(255) ,name varchar(255),dpmnt varchar(255),Date date,InTime varchar(255),status varchar(255),OutTime varchar(255))")
          mydb.commit()
          mydb.close()
          #db_exist=True
@@ -24,6 +24,36 @@ class Database:
         mycursor=mydb.cursor()
         query="insert into Employee values(%s,%s,%s,%s,%s,%s,%s,%s)"
         mycursor.execute(query,(Empid,name,dob,gender,dpmnt,phone,email,address))
+        mydb.commit()
+        mydb.close()
+
+    def mark_attendance_in(self,id,date,Time,Exit):
+        mydb=mysql.connector.connect(host="localhost",user="root",passwd="preeti_chand@07",database="Attendance")
+        mycursor=mydb.cursor()
+        mycursor.execute("Select EmpId from Records where EmpId=%s and Date =%s",(id,date))
+        row=mycursor.fetchone()
+        if(row is None):   
+            query="select name,dpmnt from Employee where EmpId =%s"
+            mycursor.execute(query,(id,))
+            row=mycursor.fetchone()
+            dept=row[1]
+            name=row[0]
+            value=None
+            query="insert into Records values(%s,%s,%s,%s,%s,%s,%s)" 
+            mycursor.execute(query,(id,name,dept,date,Time,"Present",value))
+            mydb.commit()
+            mydb.close()
+        else:
+            return True
+
+    def mark_attendance_out(self,id,Time):
+        mydb=mysql.connector.connect(host="localhost",user="root",passwd="preeti_chand@07",database="Attendance")
+        mycursor=mydb.cursor()
+        mycursor.execute("Select EmpId from Records where EmpId=%s and OutTime is Null",(id,))
+        row=mycursor.fetchone()
+        if(row is  None):
+                return True
+        mycursor.execute("update Records set OutTime=%s where EmpId=%s",(Time,id))
         mydb.commit()
         mydb.close()
 
@@ -62,6 +92,9 @@ class Database:
         mydb.close()
         return rows
 
+    
+
+        
 
 
 

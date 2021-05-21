@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 from database import Database
 from QRCode import QRCode 
+import datetime
 class Employee:
 	def __init__(self,root):
 		self.root=root
@@ -20,38 +22,38 @@ class Employee:
 		self.search_by=StringVar()
 		self.search_text=StringVar()
 
-		title=Label(self.root,text="Attendance Management System",font=("times new roman",30,"bold"),fg="black",bg="powder blue",bd=4,relief=RAISED)
+		title=Label(self.root,text="Employee Attendance Management System",font=("times new roman",30,"bold"),fg="black",bg="#44AF69",bd=4,relief=RAISED)
 		title.pack(side=TOP,fill=X)
 
 
 		#Manage Frame
-		Manage_frame= Frame(self.root,bd=4,relief=RIDGE,bg="powder blue")
-		Manage_frame.place(x=10,y=60,width=550,height=640)
+		Manage_frame= Frame(self.root,bd=4,relief=RIDGE,bg="#CBD2DE")
+		Manage_frame.place(x=10,y=50,width=550,height=640)
 
 		#Manage Title
-		M_title= Label(Manage_frame,text="Manage Employees",font=("times new roman",25,"bold"),fg="black",bg="powder blue",bd=4,relief=RAISED)
-		M_title.grid(row=0,columnspan=2,padx=20,pady=20)
+		M_title= Label(Manage_frame,text="Manage Employees",font=("times new roman",20,"bold"),fg="black",bg="#44AF69",bd=4,relief=RAISED)
+		M_title.grid(row=0,columnspan=2,padx=10,pady=10)
 
 		#labels
-		lbl_name=Label(Manage_frame,text="Name",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_name=Label(Manage_frame,text="Name",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_name.grid(row=1,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_dob=Label(Manage_frame,text="DOB",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_dob=Label(Manage_frame,text="DOB",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_dob.grid(row=2,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_gender=Label(Manage_frame,text="Gender",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_gender=Label(Manage_frame,text="Gender",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_gender.grid(row=3,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_dpmnt=Label(Manage_frame,text="Department",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_dpmnt=Label(Manage_frame,text="Department",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_dpmnt.grid(row=4,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_phone=Label(Manage_frame,text="Phone Number",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_phone=Label(Manage_frame,text="Phone Number",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_phone.grid(row=5,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_email=Label(Manage_frame,text="Email",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_email=Label(Manage_frame,text="Email",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_email.grid(row=6,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_address=Label(Manage_frame,text="Address",font=("times new roman",20,"bold"),fg="black",bg="powder blue",bd=4)
+		lbl_address=Label(Manage_frame,text="Address",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
 		lbl_address.grid(row=7,column=0,padx=20,pady=10,sticky=W)
 
 
@@ -80,21 +82,32 @@ class Employee:
 		self.address_text.grid(row=7,column=1,padx=20,pady=10,sticky=W)
 
 
-		#Buttons Frame
-		Buttons_frame= Frame(self.root,bd=2,relief=RIDGE,bg="powder blue")
-		Buttons_frame.place(x=25,y=610,width=500)
+		#First Buttons Frame
+		Buttons_frame= Frame(self.root,bd=2,relief=RIDGE,bg="#CBD2DE")
+		Buttons_frame.place(x=25,y=570,width=520)
 
-		add_btn=Button(Buttons_frame,text="ADD",width=8,height=1,fg="White",bg="crimson",command=self.add_employee)
-		add_btn.grid(row=0,column=0,padx=10,pady=10)
+		add_btn=Button(Buttons_frame,text="ADD",width=10,height=1,fg="White",bg="#242536",command=self.add_employee)
+		add_btn.grid(row=0,column=0,padx=10,pady=10,sticky=W)
 
-		update_btn=Button(Buttons_frame,text="UPDATE",width=10,height=1,fg="White",bg="crimson",command=self.update)
+		update_btn=Button(Buttons_frame,text="UPDATE",width=10,height=1,fg="White",bg="#242536",command=self.update)
 		update_btn.grid(row=0,column=1,padx=10,pady=10)
 
-		delete_btn=Button(Buttons_frame,text="DELETE",width=10,height=1,fg="White",bg="crimson",command=self.delete)
+		delete_btn=Button(Buttons_frame,text="DELETE",width=10,height=1,fg="White",bg="#242536",command=self.delete)
 		delete_btn.grid(row=0,column=2,padx=10,pady=10)
 
-		clear_btn=Button(Buttons_frame,text="CLEAR",width=10,height=1,fg="White",bg="crimson",command=self.clear)
+		clear_btn=Button(Buttons_frame,text="CLEAR",width=10,height=1,fg="White",bg="#242536",command=self.clear)
 		clear_btn.grid(row=0,column=3,padx=10,pady=10)
+
+		#Second Buttons Frame
+		Buttons_frame2= Frame(self.root,bd=2,relief=RIDGE,bg="#CBD2DE")
+		Buttons_frame2.place(x=25,y=630,width=520)
+
+		attendance_btn1=Button(Buttons_frame2,text="ATTENDANCE IN",width=15,height=1,fg="White",bg="#242536",command=self.mark_attendance_In)
+		attendance_btn1.grid(row=1,column=0,padx=10,pady=10)
+
+		attendance_btn2=Button(Buttons_frame2,text="ATTENDANCE OUT",width=15,height=1,fg="White",bg="#242536",command=self.mark_attendance_Out)
+		attendance_btn2.grid(row=1,column=1,padx=10,pady=10)
+
 
 
 
@@ -115,7 +128,7 @@ class Employee:
 		search_btn=Button(Details_frame,text="SEARCH",width=6,height=1,fg="White",bg="crimson",command=self.search_data)
 		search_btn.grid(row=1,column=3,padx=10,pady=10)
 
-		showall_btn=Button(Details_frame,text="SHOWALL",width=6,height=1,fg="White",bg="crimson")
+		showall_btn=Button(Details_frame,text="SHOWALL",width=6,height=1,fg="White",bg="crimson",command=self.fetch_all_data)
 		showall_btn.grid(row=1,column=4,padx=10,pady=10)
 
 		#Table Frame
@@ -223,6 +236,47 @@ class Employee:
 		self.address_text.delete("1.0",END)
 		self.address_text.insert(END,row[7])
 		self.EmployeeID=row[0]
+
+
+	def mark_attendance_In(self):
+		mark=QRCode()
+		ID=mark.scan()
+		ID=ID[0]
+
+		now = datetime.datetime.now()
+		formatted_date=now.strftime('%Y-%m-%d')
+
+		db=Database()
+		repeat= db.mark_attendance_in(ID,formatted_date,now.strftime('%H:%M'),False)
+
+		if(repeat is True):
+			messagebox.showwarning("Warning","Enter Time already marked")
+        
+		else:
+			messagebox.showinfo("Attendance Successfully Marked", "Employee No. %s at %s/%s/%s %s:%s"
+                                        % (ID, now.day, now.month, now.year, now.hour, now.minute))
+
+	def mark_attendance_Out(self):
+		mark=QRCode()
+		ID=mark.scan()
+		ID=ID[0]
+
+		now = datetime.datetime.now()
+
+		db=Database()
+		repeat= db.mark_attendance_out(ID,now.strftime('%H:%M'))
+
+		if(repeat is True):
+			messagebox.showwarning("Warning","Exit Time already marked")
+		else:
+			messagebox.showinfo("Attendance Successfully Marked", "Employee No. %s at %s/%s/%s %s:%s"
+                                        % (ID, now.day, now.month, now.year, now.hour, now.minute))
+
+
+
+
+
+
 
 
 	def clear(self):

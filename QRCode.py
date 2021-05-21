@@ -16,6 +16,7 @@ class QRCode:
 
 
 	def scan(self):
+		s=[]
 		i=0
 		cap=cv2.VideoCapture(0)
 		while i<1:
@@ -27,3 +28,5 @@ class QRCode:
 			cv2.imshow("QRCode",frame)
 			cv2.waitKey(5)
 			cv2.destroyAllWindows
+
+		return s;
