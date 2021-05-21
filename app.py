@@ -22,38 +22,38 @@ class Employee:
 		self.search_by=StringVar()
 		self.search_text=StringVar()
 
-		title=Label(self.root,text="Employee Attendance Management System",font=("times new roman",30,"bold"),fg="black",bg="#44AF69",bd=4,relief=RAISED)
+		title=Label(self.root,text="Employee Attendance Management System",font=("times new roman",30,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		title.pack(side=TOP,fill=X)
 
 
 		#Manage Frame
-		Manage_frame= Frame(self.root,bd=4,relief=RIDGE,bg="#CBD2DE")
-		Manage_frame.place(x=10,y=50,width=550,height=640)
+		Manage_frame= Frame(self.root,bd=4,relief=RIDGE,bg="#44AF69")
+		Manage_frame.place(x=10,y=60,width=550,height=640)
 
 		#Manage Title
-		M_title= Label(Manage_frame,text="Manage Employees",font=("times new roman",20,"bold"),fg="black",bg="#44AF69",bd=4,relief=RAISED)
+		M_title= Label(Manage_frame,text="Manage Employees",font=("times new roman",20,"bold"),fg="#F5F5F7",bg="#242536",bd=4,relief=RAISED)
 		M_title.grid(row=0,columnspan=2,padx=10,pady=10)
 
 		#labels
-		lbl_name=Label(Manage_frame,text="Name",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_name=Label(Manage_frame,text="Name",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_name.grid(row=1,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_dob=Label(Manage_frame,text="DOB",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_dob=Label(Manage_frame,text="DOB",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_dob.grid(row=2,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_gender=Label(Manage_frame,text="Gender",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_gender=Label(Manage_frame,text="Gender",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_gender.grid(row=3,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_dpmnt=Label(Manage_frame,text="Department",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_dpmnt=Label(Manage_frame,text="Department",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_dpmnt.grid(row=4,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_phone=Label(Manage_frame,text="Phone Number",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_phone=Label(Manage_frame,text="Phone Number",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_phone.grid(row=5,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_email=Label(Manage_frame,text="Email",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_email=Label(Manage_frame,text="Email",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_email.grid(row=6,column=0,padx=20,pady=10,sticky=W)
 
-		lbl_address=Label(Manage_frame,text="Address",font=("times new roman",20,"bold"),fg="black",bg="#CBD2DE",bd=4)
+		lbl_address=Label(Manage_frame,text="Address",font=("times new roman",20,"bold"),fg="#242536",bg="#44AF69",bd=4)
 		lbl_address.grid(row=7,column=0,padx=20,pady=10,sticky=W)
 
 
@@ -83,7 +83,7 @@ class Employee:
 
 
 		#First Buttons Frame
-		Buttons_frame= Frame(self.root,bd=2,relief=RIDGE,bg="#CBD2DE")
+		Buttons_frame= Frame(self.root,bd=2,relief=RIDGE,bg="#44AF69")
 		Buttons_frame.place(x=25,y=570,width=520)
 
 		add_btn=Button(Buttons_frame,text="ADD",width=10,height=1,fg="White",bg="#242536",command=self.add_employee)
@@ -99,7 +99,7 @@ class Employee:
 		clear_btn.grid(row=0,column=3,padx=10,pady=10)
 
 		#Second Buttons Frame
-		Buttons_frame2= Frame(self.root,bd=2,relief=RIDGE,bg="#CBD2DE")
+		Buttons_frame2= Frame(self.root,bd=2,relief=RIDGE,bg="#44AF69")
 		Buttons_frame2.place(x=25,y=630,width=520)
 
 		attendance_btn1=Button(Buttons_frame2,text="ATTENDANCE IN",width=15,height=1,fg="White",bg="#242536",command=self.mark_attendance_In)
@@ -108,14 +108,17 @@ class Employee:
 		attendance_btn2=Button(Buttons_frame2,text="ATTENDANCE OUT",width=15,height=1,fg="White",bg="#242536",command=self.mark_attendance_Out)
 		attendance_btn2.grid(row=1,column=1,padx=10,pady=10)
 
+		report_btn=Button(Buttons_frame2,text="REPORT",width=15,height=1,fg="White",bg="#242536",command=self.generate_report)
+		report_btn.grid(row=1,column=2,padx=10,pady=10)
+
 
 
 
 		#Details Frame
-		Details_frame= Frame(self.root,bd=4,relief=RIDGE,bg="powder blue")
+		Details_frame= Frame(self.root,bd=4,relief=RIDGE,bg="#44AF69")
 		Details_frame.place(x=570,y=60,width=780,height=640)
 
-		search_lb1=Label(Details_frame,text="Search By",font=("times new roman",15,"bold"),fg="red",bg="powder blue")
+		search_lb1=Label(Details_frame,text="Search By",font=("times new roman",15,"bold"),fg="#242536",bg="#44AF69")
 		search_lb1.grid(row=1,column=0,padx=20,pady=10,sticky=W)
 
 		search_combo=ttk.Combobox(Details_frame,textvariable=self.search_by,width=15,font=("times new roman",15,"bold"),state="readonly")
@@ -125,10 +128,10 @@ class Employee:
 		search_entry=ttk.Entry(Details_frame,textvariable=self.search_text,font=("times new roman",15,"bold"))
 		search_entry.grid(row=1,column=2,padx=20,pady=10,sticky=E)
 
-		search_btn=Button(Details_frame,text="SEARCH",width=6,height=1,fg="White",bg="crimson",command=self.search_data)
+		search_btn=Button(Details_frame,text="SEARCH",width=6,height=1,fg="White",bg="#242536",command=self.search_data)
 		search_btn.grid(row=1,column=3,padx=10,pady=10)
 
-		showall_btn=Button(Details_frame,text="SHOWALL",width=6,height=1,fg="White",bg="crimson",command=self.fetch_all_data)
+		showall_btn=Button(Details_frame,text="SHOWALL",width=6,height=1,fg="White",bg="#242536",command=self.fetch_all_data)
 		showall_btn.grid(row=1,column=4,padx=10,pady=10)
 
 		#Table Frame
@@ -273,11 +276,9 @@ class Employee:
                                         % (ID, now.day, now.month, now.year, now.hour, now.minute))
 
 
-
-
-
-
-
+	def generate_report(self):
+		db=Database()
+		db.generate_Report()
 
 	def clear(self):
 			self.name_var.set(""),
@@ -287,9 +288,6 @@ class Employee:
 			self.phone_var.set(""),
 			self.email_var.set(""),
 			self.address_texts.delete("1.0",END)
-
-
-
 
 root=Tk()
 ob=Employee(root)

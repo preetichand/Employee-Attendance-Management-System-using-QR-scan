@@ -1,5 +1,6 @@
 import mysql.connector
 import datetime;
+import pandas
 
 class Database:
     
@@ -91,6 +92,13 @@ class Database:
         mydb.commit()
         mydb.close()
         return rows
+
+    def generate_Report(self):
+        mydb=mysql.connector.connect(host="localhost",user="root",passwd="preeti_chand@07",database="Attendance")
+        mycursor=mydb.cursor()
+        query="select *from Records"
+        results=pandas.read_sql_query(query,mydb)
+        results.to_csv("report.csv",index=False)
 
     
 
