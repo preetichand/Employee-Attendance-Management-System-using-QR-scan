@@ -6,7 +6,7 @@ class Database:
     
 
     def create_Db(self):    #Initialise the database 
-         mydb=mysql.connector.connect(host="localhost",user="root",passwd="preeti_chand@07")
+         mydb=mysql.connector.connect(host="localhost",user="root",passwd="")
          mycursor=mydb.cursor()
          mycursor.execute("create database if not exists Attendance")
          mycursor.execute("use Attendance")
